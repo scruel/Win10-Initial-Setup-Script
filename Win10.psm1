@@ -1282,7 +1282,7 @@ Function DisableTitleBarColor {
 
 # Enable AutoColorization
 Function EnableAutoColorization {
-	Write-Output "Enable AutoColorization..."
+	Write-Output "Enabling AutoColorization..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -Type DWord -Value 1
 }
 
@@ -1290,6 +1290,20 @@ Function EnableAutoColorization {
 Function DisableAutoColorization {
 	Write-Output "Disabling AutoColorization..."
 	Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -ea SilentlyContinue
+}
+
+# Enable UWP Starting AutoColorization
+Function EnableUWPStartingAutoColorization {
+	Write-Output "Enabling UWP Starting AutoColorization..."
+	New-Item-IfNotExist "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\SplashScreen\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" | Out-Null
+	Set-ItemProperty -Path "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\Microsoft.WindowsStore_8wekyb3d8bbwe\SplashScreen\Microsoft.WindowsStore_8wekyb3d8bbwe!App" -Name "BackgroundColor" -Type String -Value "transparent"
+}
+
+# Disable UWP Starting AutoColorization
+Function DisableUWPStartingAutoColorization {
+	Write-Output "Disabling UWP Starting AutoColorization..."
+	New-Item-IfNotExist "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\SplashScreen\Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" | Out-Null
+	Set-ItemProperty -Path "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\SystemAppData\Microsoft.WindowsStore_8wekyb3d8bbwe\SplashScreen\Microsoft.WindowsStore_8wekyb3d8bbwe!App" -Name "BackgroundColor" -Type String -Value "#D0D0D0"
 }
 
 # Hide network options from Lock Screen
