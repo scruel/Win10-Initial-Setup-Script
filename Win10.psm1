@@ -1280,6 +1280,18 @@ Function DisableTitleBarColor {
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "EnableTransparency" -Type DWord -Value 0
 }
 
+# Enable AutoColorization
+Function EnableAutoColorization {
+	Write-Output "Enable AutoColorization..."
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -Type DWord -Value 1
+}
+
+# Disable AutoColorization
+Function DisableAutoColorization {
+	Write-Output "Disabling AutoColorization..."
+	Remove-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "AutoColorization" -ea SilentlyContinue
+}
+
 # Hide network options from Lock Screen
 Function HideNetworkFromLockScreen {
 	Write-Output "Hiding network options from Lock Screen..."
